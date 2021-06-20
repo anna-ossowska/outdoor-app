@@ -1,0 +1,11 @@
+.sidebar {
+  background-color: $color-grey-dark-1;
+  flex-basis: 40%;
+  padding: 5rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

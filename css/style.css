@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600&display=swap");
 *,
 *::before,
 *::after {
@@ -10,15 +11,19 @@ html {
 
 body {
   box-sizing: border-box;
-  background-color: #eeeeee;
-  padding: 5rem; }
+  background-color: #dddddd;
+  padding: 4rem;
+  display: flex;
+  height: 100vh;
+  overscroll-behavior-y: none; }
 
 body {
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
   font-size: 2rem;
-  letter-spacing: 0.1rem;
-  line-height: 1.6; }
+  letter-spacing: 0.05rem;
+  line-height: 1.6;
+  color: #f3f3f3; }
 
 .py-1 {
   padding: 0.5rem 0; }
@@ -67,3 +72,77 @@ body {
 
 .mt-5 {
   margin-top: 3rem; }
+
+#map {
+  flex-basis: 70%;
+  padding: 2rem; }
+
+.sidebar {
+  background-color: #2d3439;
+  flex-basis: 40%;
+  padding: 5rem;
+  overflow-x: hidden;
+  overflow-y: scroll; }
+  .sidebar::-webkit-scrollbar {
+    display: none; }
+
+.form {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-gap: 1.5rem;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  opacity: 0.9;
+  transition: opacity, 0.25s ease-in; }
+  .form:hover {
+    opacity: 1; }
+
+select,
+input {
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  outline: none;
+  height: 4rem;
+  font-size: 1.75rem; }
+
+input::placeholder {
+  color: rgba(45, 52, 57, 0.3); }
+
+label {
+  display: inline-block;
+  padding: 0 0.5rem 0.8rem;
+  font-weight: 500;
+  font-size: 1.75rem; }
+
+.workout {
+  position: relative;
+  list-style: none;
+  border-radius: 0 0.5rem 0.5rem 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 2rem 2rem 2rem 3.5rem;
+  opacity: 0.9;
+  transition: opacity, 0.25s ease-in; }
+  .workout::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.5rem;
+    height: 100%;
+    background-color: #9be3ef; }
+  .workout__header {
+    font-size: 1.8rem;
+    padding-bottom: 1.75rem; }
+  .workout__details {
+    font-size: 1.5rem;
+    display: flex; }
+  .workout__distance, .workout__duration, .workout__speed {
+    margin-right: 4rem; }
+
+.workout:not(:last-child) {
+  margin-bottom: 2rem; }

@@ -12,6 +12,9 @@ html {
 
 body {
   box-sizing: border-box;
-  background-color: $color-grey-light-1;
-  padding: 5rem;
+  background-color: $color-grey-light-2;
+  padding: 4rem;
+  display: flex;
+  height: 100vh;
+  overscroll-behavior-y: none;
 }

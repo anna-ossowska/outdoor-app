@@ -6,17 +6,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&display=swap"
-      rel="stylesheet"
-    />
-
     <script defer src="./script.js"></script>
     <title>Outdoor</title>
   </head>
   <body>
-    <h1>test</h1>
-    <p>test</p>
+    <img src="" alt="" class="logo" />
+    <div class="sidebar">
+      <ul class="workouts">
+        <!-- form -->
+        <form class="form">
+          <div class="form__row">
+            <label for="type">Type</label>
+            <select>
+              <option value="jogging">Jogging</option>
+              <option value="cycling">Cycling</option>
+            </select>
+          </div>
+          <!-- <div class="form__row">
+            <label for="distance">Distance</label>
+            <input type="number" id="distance" placeholder="km" />
+          </div> -->
+          <div class="form__row">
+            <label for="distance">Distance</label>
+            <input type="number" id="distance" placeholder="km" />
+          </div>
+          <div class="form__row">
+            <label for="duration">Duration</label>
+            <input type="number" placeholder="min" />
+          </div>
+        </form>
+
+        <!-- workouts -->
+        <li class="workout workout--jogging">
+          <h2 class="workout__header">Running on June 20</h2>
+          <div class="workout__details">
+            <span class="workout__distance">🏃🏼‍♀️ 5 km</span>
+            <span class="workout__duration">⏱️ 30 min</span>
+            <span class="workout__speed">💨 10 km/h</span>
+          </div>
+        </li>
+        <li class="workout workout--jogging">
+          <h2 class="workout__header">Running on June 20</h2>
+          <div class="workout__details">
+            <span class="workout__distance">🏃🏼‍♀️ 5 km</span>
+            <span class="workout__duration">⏱️ 30 min</span>
+            <span class="workout__speed">💨 10 km/h</span>
+          </div>
+        </li>
+        <li class="workout workout--cycling">
+          <h2 class="workout__header">Cycling on June 22</h2>
+          <div class="workout__details">
+            <span class="workout__distance">🏃🏼‍♀️ 4 km</span>
+            <span class="workout__duration">⏱️ 20 min</span>
+            <span class="workout__speed">💨8 km/h</span>
+          </div>
+        </li>
+        <li class="workout workout--jogging">
+          <h2 class="workout__header">Running on June 20</h2>
+          <div class="workout__details">
+            <span class="workout__distance">🏃🏼‍♀️ 5 km</span>
+            <span class="workout__duration">⏱️ 30 min</span>
+            <span class="workout__speed">💨 10 km/h</span>
+          </div>
+        </li>
+        <li class="workout workout--cycling">
+          <h2 class="workout__header">Cycling on June 22</h2>
+          <div class="workout__details">
+            <span class="workout__distance">🏃🏼‍♀️ 4 km</span>
+            <span class="workout__duration">⏱️ 20 min</span>
+            <span class="workout__speed">💨8 km/h</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div id="map"></div>
   </body>
 </html>

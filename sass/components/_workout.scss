@@ -1,0 +1,40 @@
+.workout {
+  position: relative;
+  list-style: none;
+  border-radius: 0 $border-radius-main $border-radius-main 0;
+  background-color: rgba($color-white, 0.1);
+  border-radius: $border-radius-main;
+  padding: 2rem 2rem 2rem 3.5rem;
+  opacity: 0.9;
+  transition: opacity, 0.25s ease-in;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.5rem;
+    height: 100%;
+    background-color: $color-highlight;
+  }
+
+  &__header {
+    font-size: 1.8rem;
+    padding-bottom: 1.75rem;
+  }
+
+  &__details {
+    font-size: 1.5rem;
+    display: flex;
+  }
+
+  &__distance,
+  &__duration,
+  &__speed {
+    margin-right: 4rem;
+  }
+}
+
+.workout:not(:last-child) {
+  margin-bottom: 2rem;
+}
