@@ -1,17 +1,12 @@
 .form {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1.5fr 0.5fr;
   grid-gap: 1.5rem;
   padding: 2.5rem;
   margin-bottom: 3rem;
   background-color: rgba($color-white, 0.1);
   border-radius: $border-radius-main;
-  opacity: 0.9;
-  transition: opacity, 0.25s ease-in;
-
-  &:hover {
-    opacity: 1;
-  }
+  opacity: 0.95;
 }
 
 select,
@@ -23,6 +18,15 @@ input {
   outline: none;
   height: 4rem;
   font-size: 1.75rem;
+}
+
+.input {
+  background-color: $color-grey-light-2;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: $color-white;
+  }
 }
 
 input::placeholder {

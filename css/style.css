@@ -11,7 +11,7 @@ html {
 
 body {
   box-sizing: border-box;
-  background-color: #dddddd;
+  background-color: #e7e6e6;
   padding: 4rem;
   display: flex;
   height: 100vh;
@@ -88,16 +88,13 @@ body {
 
 .form {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1.5fr 0.5fr;
   grid-gap: 1.5rem;
   padding: 2.5rem;
   margin-bottom: 3rem;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem;
-  opacity: 0.9;
-  transition: opacity, 0.25s ease-in; }
-  .form:hover {
-    opacity: 1; }
+  opacity: 0.95; }
 
 select,
 input {
@@ -108,6 +105,12 @@ input {
   outline: none;
   height: 4rem;
   font-size: 1.75rem; }
+
+.input {
+  background-color: #e7e6e6;
+  transition: background-color 0.2s ease-in-out; }
+  .input:hover {
+    background-color: #fff; }
 
 input::placeholder {
   color: rgba(45, 52, 57, 0.3); }
@@ -134,7 +137,7 @@ label {
     left: 0;
     width: 0.5rem;
     height: 100%;
-    background-color: #9be3ef; }
+    background-color: #51c9e1; }
   .workout__header {
     font-size: 1.8rem;
     padding-bottom: 1.75rem; }
@@ -146,3 +149,16 @@ label {
 
 .workout:not(:last-child) {
   margin-bottom: 2rem; }
+
+.btn {
+  background-color: #51c9e1;
+  border-radius: 0.5rem;
+  color: #fff;
+  text-align: justify;
+  font-weight: 500;
+  letter-spacing: 0.12rem;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.2s ease-in-out; }
+  .btn:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    transform: scale(1.04); }
