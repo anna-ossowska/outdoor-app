@@ -1,11 +1,26 @@
-'use strict';
+const form = document.querySelector('form');
 
-const getPosition = function () {
-  navigator.geolocation.getCurrentPosition(function (position) {
+class App {
+  #map;
+  #mapEvent;
+  constructor() {
+    this._getPosition();
+  }
+
+  _getPosition = function () {
+    navigator.geolocation.getCurrentPosition(
+      // position coming from the geolocation is passed automatically
+      this._loadMap.bind(this),
+      function () {
+        alert('Error: location cannot be set');
+      }
+    );
+  };
+
+  _loadMap = function (position) {
     const { latitude: lat, longitude: long } = position.coords;
-    console.log(lat, long);
 
-    const map = L.map('map').setView([lat, long], 13);
+    this.#map = L.map('map').setView([lat, long], 13);
 
     L.tileLayer(
       'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
@@ -13,7 +28,7 @@ const getPosition = function () {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }
-    ).addTo(map);
+    ).addTo(this.#map);
 
     const greyIcon = new L.Icon({
       iconUrl:
@@ -33,10 +48,20 @@ const getPosition = function () {
     }).setContent('My workout');
 
     L.marker([lat, long], { icon: greyIcon })
-      .addTo(map)
+      .addTo(this.#map)
       .bindPopup(popup)
       .openPopup();
-  });
-};
 
-getPosition();
+    this.#map.on('click', this._showForm.bind(this));
+  };
+
+  _showForm(e) {
+    this.#mapEvent = e;
+    const { lat, lng } = e.latlng;
+    console.log(lat, lng);
+
+    form.classList.remove('form--hidden');
+  }
+}
+
+const app = new App();
