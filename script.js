@@ -92,25 +92,6 @@ class App {
 
     console.log(this.coords);
 
-    const greyIcon = new L.Icon({
-      iconUrl:
-        'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-      shadowUrl:
-        'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41],
-    });
-
-    const popup = L.popup({
-      maxWidth: 250,
-      minWidth: 100,
-      autoClose: false,
-      closeOnClick: false,
-      className: 'popup',
-    }).setContent('My workout');
-
     const checkIfAllNumbers = function (...inputs) {
       return inputs.every(inp => isFinite(inp));
     };
@@ -147,6 +128,19 @@ class App {
     console.log(this.#workouts);
 
     // Add workout to the UI
+    this._addWorkoutToUI(workout);
+
+    // Display marker and popup
+    this._renderMarkerAndPopup(workout);
+
+    // Clear input fields
+    inputDistance.value = inputDuration.value = '';
+
+    // Hide form
+    form.classList.add('form--hidden');
+  }
+
+  _addWorkoutToUI(workout) {
     const html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
         <h2 class="workout__header">Jogging on
@@ -160,18 +154,32 @@ class App {
     `;
 
     form.insertAdjacentHTML('afterend', html);
+  }
 
-    // Display marker and popup
-    L.marker([...this.coords], { icon: greyIcon })
+  _renderMarkerAndPopup(workout) {
+    const greyIcon = new L.Icon({
+      iconUrl:
+        'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+      shadowUrl:
+        'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+    });
+
+    const popup = L.popup({
+      maxWidth: 250,
+      minWidth: 100,
+      autoClose: false,
+      closeOnClick: false,
+      className: 'popup',
+    }).setContent('My workout');
+
+    L.marker([...workout.coords], { icon: greyIcon })
       .addTo(this.#map)
       .bindPopup(popup)
       .openPopup();
-
-    // Clear input fields
-    inputDistance.value = inputDuration.value = '';
-
-    // Hide form
-    form.classList.add('form--hidden');
   }
 }
 
