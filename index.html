@@ -29,7 +29,7 @@
         <form class="form form--hidden">
           <div class="form__row">
             <label for="type">Type</label>
-            <select>
+            <select id="type">
               <option value="jogging">Jogging</option>
               <option value="cycling">Cycling</option>
             </select>
@@ -44,7 +44,12 @@
           </div>
           <div class="form__row">
             <label for="duration">Duration</label>
-            <input type="number" placeholder="min" class="input" />
+            <input
+              type="number"
+              id="duration"
+              placeholder="min"
+              class="input"
+            />
           </div>
           <div class="form__row">
             <label>&nbsp;</label>
@@ -53,7 +58,7 @@
         </form>
 
         <!-- workouts -->
-        <li class="workout workout--jogging">
+        <!-- <li class="workout workout--jogging">
           <h2 class="workout__header">Jogging on June 20</h2>
           <div class="workout__details">
             <span class="workout__distance">🏃🏼‍♀️ 5 km</span>
@@ -92,7 +97,7 @@
             <span class="workout__duration">⏱️ 20 min</span>
             <span class="workout__speed">💨8 km/h</span>
           </div>
-        </li>
+        </li> -->
       </ul>
     </div>
 

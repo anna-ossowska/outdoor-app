@@ -1,8 +1,16 @@
 const form = document.querySelector('form');
+const btn = document.querySelector('.btn');
+const inputDistance = document.getElementById('distance');
+const inputDuration = document.getElementById('duration');
+const inputType = document.getElementById('type');
+const workoutsContainer = document.querySelector('.workouts');
+
+// prettier-ignore
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 class Workout {
-  #date = new Date();
-  #id = this.#date.getTime().toString().split('').slice(-10).join('');
+  date = new Date();
+  id = Date.now().toString().slice(-10);
   constructor(coords, distance, duration) {
     this.coords = coords; // [lat, long]
     this.distance = distance; // km
@@ -32,8 +40,10 @@ class Cycling extends Workout {
 class App {
   #map;
   #mapEvent;
+  #workouts = [];
   constructor() {
     this._getPosition();
+    form.addEventListener('submit', this._newWorkout.bind(this));
   }
 
   _getPosition = function () {
@@ -59,6 +69,29 @@ class App {
       }
     ).addTo(this.#map);
 
+    this.#map.on('click', this._showForm.bind(this));
+  };
+
+  _showForm(e) {
+    this.#mapEvent = e;
+    const { lat, lng } = e.latlng;
+    this.coords = [lat, lng];
+    inputDistance.focus();
+    form.classList.remove('form--hidden');
+  }
+
+  _newWorkout(e) {
+    e.preventDefault();
+
+    // Data comming from the form
+    const distance = inputDistance.value;
+    const duration = inputDuration.value;
+    const type = inputType.value;
+
+    let workout;
+
+    console.log(this.coords);
+
     const greyIcon = new L.Icon({
       iconUrl:
         'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
@@ -73,23 +106,72 @@ class App {
     const popup = L.popup({
       maxWidth: 250,
       minWidth: 100,
+      autoClose: false,
+      closeOnClick: false,
       className: 'popup',
     }).setContent('My workout');
 
-    L.marker([lat, long], { icon: greyIcon })
+    const checkIfAllNumbers = function (...inputs) {
+      return inputs.every(inp => isFinite(inp));
+    };
+
+    const checkIfAllPositive = function (...inputs) {
+      return inputs.every(inp => inp > 0);
+    };
+
+    // Display error messages if inputs are incorrect
+    if (
+      !checkIfAllNumbers(+distance, +duration) ||
+      !checkIfAllPositive(+distance, +duration)
+    ) {
+      alert('Please provide the positive numeric values');
+
+      // Clear input fields
+      inputDistance.value = inputDuration.value = '';
+
+      return;
+    }
+
+    // Create a new object based on workout type (Jogging)
+    if (type === 'jogging') {
+      workout = new Jogging(this.coords, distance, duration);
+      this.#workouts.push(workout);
+    }
+
+    // Create a new object based on workout type (Cycling)
+    if (type === 'cycling') {
+      workout = new Cycling(this.coords, distance, duration);
+      this.#workouts.push(workout);
+    }
+
+    console.log(this.#workouts);
+
+    // Add workout to the UI
+    const html = `
+      <li class="workout workout--${workout.type}" data-id="${workout.id}">
+        <h2 class="workout__header">Jogging on
+        ${months[workout.date.getMonth()]} ${workout.date.getDate()}</h2>
+        <div class="workout__details">
+          <span class="workout__distance">🏃🏼‍♀️ ${workout.distance} km</span>
+          <span class="workout__duration">⏱️ ${workout.duration} min</span>
+          <span class="workout__speed">💨 ${workout.calcSpeed()} km/h</span>
+        </div>
+      </li>
+    `;
+
+    form.insertAdjacentHTML('afterend', html);
+
+    // Display marker and popup
+    L.marker([...this.coords], { icon: greyIcon })
       .addTo(this.#map)
       .bindPopup(popup)
       .openPopup();
 
-    this.#map.on('click', this._showForm.bind(this));
-  };
+    // Clear input fields
+    inputDistance.value = inputDuration.value = '';
 
-  _showForm(e) {
-    this.#mapEvent = e;
-    const { lat, lng } = e.latlng;
-    console.log(lat, lng);
-
-    form.classList.remove('form--hidden');
+    // Hide form
+    form.classList.add('form--hidden');
   }
 }
 
