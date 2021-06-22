@@ -1,5 +1,34 @@
 const form = document.querySelector('form');
 
+class Workout {
+  #date = new Date();
+  #id = this.#date.getTime().toString().split('').slice(-10).join('');
+  constructor(coords, distance, duration) {
+    this.coords = coords; // [lat, long]
+    this.distance = distance; // km
+    this.duration = duration; // min
+  }
+
+  calcSpeed() {
+    this.speed = (this.distance / (this.duration / 60)).toFixed(1);
+    return this.speed;
+  }
+}
+
+class Jogging extends Workout {
+  type = 'jogging';
+  constructor(coords, distance, duration) {
+    super(coords, distance, duration);
+  }
+}
+
+class Cycling extends Workout {
+  type = 'cycling';
+  constructor(coords, distance, duration) {
+    super(coords, distance, duration);
+  }
+}
+
 class App {
   #map;
   #mapEvent;
@@ -65,3 +94,12 @@ class App {
 }
 
 const app = new App();
+
+// const workout = new Workout(222, 5, 40);
+// console.log(workout);
+
+// const jogging = new Jogging(222, 1, 5);
+// console.log(jogging.calcSpeed());
+
+// const cycling = new Cycling(333, 2, 10);
+// console.log(cycling.calcSpeed());
