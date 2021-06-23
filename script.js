@@ -21,6 +21,12 @@ class Workout {
     this.speed = (this.distance / (this.duration / 60)).toFixed(1);
     return this.speed;
   }
+
+  _setDescription() {
+    return `${
+      this.type[0].toUpperCase() + this.type.slice(1)
+    } on ${this.date.getDate()} ${months[this.date.getMonth()]}`;
+  }
 }
 
 class Jogging extends Workout {
@@ -80,6 +86,16 @@ class App {
     form.classList.remove('form--hidden');
   }
 
+  _hideForm() {
+    form.style.display = 'none';
+
+    form.classList.add('form--hidden');
+
+    setTimeout(() => {
+      form.style.display = 'grid';
+    }, 1000);
+  }
+
   _newWorkout(e) {
     e.preventDefault();
 
@@ -127,6 +143,8 @@ class App {
 
     console.log(this.#workouts);
 
+    console.log(workout._setDescription());
+
     // Add workout to the UI
     this._addWorkoutToUI(workout);
 
@@ -137,7 +155,7 @@ class App {
     inputDistance.value = inputDuration.value = '';
 
     // Hide form
-    form.classList.add('form--hidden');
+    this._hideForm();
   }
 
   _addWorkoutToUI(workout) {
@@ -153,7 +171,9 @@ class App {
       </li>
     `;
 
-    form.insertAdjacentHTML('afterend', html);
+    setTimeout(() => {
+      form.insertAdjacentHTML('afterend', html);
+    }, 10);
   }
 
   _renderMarkerAndPopup(workout) {
@@ -174,7 +194,7 @@ class App {
       autoClose: false,
       closeOnClick: false,
       className: 'popup',
-    }).setContent('My workout');
+    }).setContent(workout._setDescription());
 
     L.marker([...workout.coords], { icon: greyIcon })
       .addTo(this.#map)

@@ -7,9 +7,15 @@
   background-color: rgba($color-white, 0.1);
   border-radius: $border-radius-main;
   opacity: 0.95;
+  transition: all 0.5s, transform 1ms;
 
   &--hidden {
-    display: none;
+    transform: translateY(-4rem);
+    opacity: 0;
+    height: 0;
+    display: hidden;
+    margin-bottom: 0;
+    padding: 0 2.5rem;
   }
 }
 
@@ -41,5 +47,5 @@ label {
   display: inline-block;
   padding: 0 0.5rem 0.8rem;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1.75rem;
 }

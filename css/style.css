@@ -94,9 +94,15 @@ body {
   margin-bottom: 3rem;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem;
-  opacity: 0.95; }
+  opacity: 0.95;
+  transition: all 0.5s, transform 1ms; }
   .form--hidden {
-    display: none; }
+    transform: translateY(-4rem);
+    opacity: 0;
+    height: 0;
+    display: hidden;
+    margin-bottom: 0;
+    padding: 0 2.5rem; }
 
 select,
 input {
@@ -121,7 +127,7 @@ label {
   display: inline-block;
   padding: 0 0.5rem 0.8rem;
   font-weight: 500;
-  font-size: 2rem; }
+  font-size: 1.75rem; }
 
 .workout {
   position: relative;
@@ -141,16 +147,15 @@ label {
     height: 100%;
     background-color: #51c9e1; }
   .workout__header {
-    font-size: 2rem;
+    font-size: 1.75rem;
     padding-bottom: 1.75rem; }
   .workout__details {
     font-size: 1.75rem;
     display: flex; }
   .workout__distance, .workout__duration, .workout__speed {
     margin-right: 4rem; }
-
-.workout:not(:last-child) {
-  margin-bottom: 2rem; }
+  .workout:not(:last-child) {
+    margin-bottom: 2rem; }
 
 .btn {
   background-color: #51c9e1;
@@ -158,7 +163,7 @@ label {
   color: #fff;
   text-align: justify;
   font-weight: 500;
-  letter-spacing: 0.12rem;
+  font-size: 1.75rem;
   font-family: 'Raleway', sans-serif;
   transition: all 0.2s ease-in-out; }
   .btn:hover {
@@ -186,5 +191,5 @@ label {
 .leaflet-popup .leaflet-popup-content {
   font-family: 'Relaway', sans-serif !important;
   letter-spacing: 0.05rem !important;
-  font-size: 1.75rem !important;
+  font-size: 1.5rem !important;
   font-weight: 300 !important; }
