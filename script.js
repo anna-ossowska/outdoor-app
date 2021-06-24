@@ -5,6 +5,12 @@ const inputDuration = document.getElementById('duration');
 const inputType = document.getElementById('type');
 const workoutsContainer = document.querySelector('.workouts');
 
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const modalInput = document.querySelector('.modal__input');
+const modalSubmit = document.querySelector('.modal__submit');
+const modalForm = document.querySelector('.modal__form');
+
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -47,12 +53,17 @@ class App {
   #map;
   #mapEvent;
   #workouts = [];
+  #weight;
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
+
+    // Modal
+    window.addEventListener('load', this._showModal.bind(this));
+    modal.addEventListener('submit', this._hideModal.bind(this));
   }
 
-  _getPosition = function () {
+  _getPosition() {
     navigator.geolocation.getCurrentPosition(
       // position coming from the geolocation is passed automatically
       this._loadMap.bind(this),
@@ -60,9 +71,9 @@ class App {
         alert('Error: location cannot be set');
       }
     );
-  };
+  }
 
-  _loadMap = function (position) {
+  _loadMap(position) {
     const { latitude: lat, longitude: long } = position.coords;
 
     this.#map = L.map('map').setView([lat, long], 13);
@@ -76,7 +87,7 @@ class App {
     ).addTo(this.#map);
 
     this.#map.on('click', this._showForm.bind(this));
-  };
+  }
 
   _showForm(e) {
     this.#mapEvent = e;
@@ -98,6 +109,9 @@ class App {
 
   _newWorkout(e) {
     e.preventDefault();
+
+    // WEIGHT saved inside app obj
+    console.log(this.#weight);
 
     // Data comming from the form
     const distance = inputDistance.value;
@@ -201,6 +215,20 @@ class App {
       .bindPopup(popup)
       .openPopup();
   }
+
+  _showModal() {
+    setTimeout(() => {
+      modal.classList.remove('modal--hidden');
+      overlay.classList.remove('overlay--hidden');
+    }, 4000);
+  }
+
+  _hideModal(e) {
+    e.preventDefault();
+    modal.classList.add('modal--hidden');
+    overlay.classList.add('overlay--hidden');
+    this.#weight = +modalInput.value;
+  }
 }
 
 const app = new App();
@@ -213,3 +241,4 @@ const app = new App();
 
 // const cycling = new Cycling(333, 2, 10);
 // console.log(cycling.calcSpeed());
+console.log(app);
