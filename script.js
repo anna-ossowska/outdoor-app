@@ -17,15 +17,21 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 class Workout {
   date = new Date();
   id = Date.now().toString().slice(-10);
-  constructor(coords, distance, duration) {
+  constructor(coords, distance, duration, weight) {
     this.coords = coords; // [lat, long]
     this.distance = distance; // km
     this.duration = duration; // min
+    this.weight = weight; // kg
   }
 
   calcSpeed() {
     this.speed = (this.distance / (this.duration / 60)).toFixed(1);
     return this.speed;
+  }
+
+  // Duration (in minutes)*(MET*3.5*weight in kg)/200
+  calcKcal() {
+    return ((this.duration * this.MET * 3.5 * this.weight) / 200).toFixed();
   }
 
   _setDescription() {
@@ -37,15 +43,17 @@ class Workout {
 
 class Jogging extends Workout {
   type = 'jogging';
-  constructor(coords, distance, duration) {
-    super(coords, distance, duration);
+  MET = 8;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
   }
 }
 
 class Cycling extends Workout {
   type = 'cycling';
-  constructor(coords, distance, duration) {
-    super(coords, distance, duration);
+  MET = 7.5;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
   }
 }
 
@@ -53,7 +61,7 @@ class App {
   #map;
   #mapEvent;
   #workouts = [];
-  #weight;
+  weight;
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -111,7 +119,7 @@ class App {
     e.preventDefault();
 
     // WEIGHT saved inside app obj
-    console.log(this.#weight);
+    console.log(this.weight);
 
     // Data comming from the form
     const distance = inputDistance.value;
@@ -145,19 +153,19 @@ class App {
 
     // Create a new object based on workout type (Jogging)
     if (type === 'jogging') {
-      workout = new Jogging(this.coords, distance, duration);
+      workout = new Jogging(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     // Create a new object based on workout type (Cycling)
     if (type === 'cycling') {
-      workout = new Cycling(this.coords, distance, duration);
+      workout = new Cycling(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     console.log(this.#workouts);
-
-    console.log(workout._setDescription());
 
     // Add workout to the UI
     this._addWorkoutToUI(workout);
@@ -220,14 +228,14 @@ class App {
     setTimeout(() => {
       modal.classList.remove('modal--hidden');
       overlay.classList.remove('overlay--hidden');
-    }, 4000);
+    }, 100);
   }
 
   _hideModal(e) {
     e.preventDefault();
     modal.classList.add('modal--hidden');
     overlay.classList.add('overlay--hidden');
-    this.#weight = +modalInput.value;
+    this.weight = +modalInput.value;
   }
 }
 
@@ -241,4 +249,3 @@ const app = new App();
 
 // const cycling = new Cycling(333, 2, 10);
 // console.log(cycling.calcSpeed());
-console.log(app);
