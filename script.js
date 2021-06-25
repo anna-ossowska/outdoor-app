@@ -286,37 +286,38 @@ class App {
     this._hideForm();
   }
 
+  _checkWorkoutType(type) {
+    switch (type) {
+      case 'cycling':
+        return '🚴‍♂️';
+      case 'hiking':
+        return '⛰️';
+      case 'jogging':
+        return '🏃🏼‍♀️';
+      case 'kayaking':
+        return '🚣‍♀️';
+      case 'sailing':
+        return '⛵';
+      case 'skating':
+        return '⛸️';
+      case 'skiing':
+        return '🎿';
+      case 'swimming':
+        return '🏊🏿‍♀️';
+      case 'walking':
+        return '🚶🏻‍♀️';
+    }
+  }
+
   _addWorkoutToUI(workout) {
-    const checkWorkoutType = function (type) {
-      switch (type) {
-        case 'cycling':
-          return '🚴‍♂️';
-        case 'hiking':
-          return '⛰️';
-        case 'jogging':
-          return '🏃🏼‍♀️';
-        case 'kayaking':
-          return '🚣‍♀️';
-        case 'sailing':
-          return '⛵';
-        case 'skating':
-          return '⛸️';
-        case 'skiing':
-          return '🎿';
-        case 'swimming':
-          return '🏊🏿‍♀️';
-        case 'walking':
-          return '🚶🏻‍♀️';
-      }
-    };
     const html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
         <h2 class="workout__header">Jogging on
         ${months[workout.date.getMonth()]} ${workout.date.getDate()}</h2>
         <div class="workout__details">
-          <span class="workout__distance">${checkWorkoutType(workout.type)} ${
-      workout.distance
-    } km</span>
+          <span class="workout__distance">${this._checkWorkoutType(
+            workout.type
+          )} ${workout.distance} km</span>
           <span class="workout__duration">⏱️ ${workout.duration} min</span>
           <span class="workout__speed">💨 ${workout.calcSpeed()} km/h</span>
         </div>
