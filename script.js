@@ -29,7 +29,6 @@ class Workout {
     return this.speed;
   }
 
-  // Duration (in minutes)*(MET*3.5*weight in kg)/200
   calcKcal() {
     return ((this.duration * this.MET * 3.5 * this.weight) / 200).toFixed();
   }
@@ -41,6 +40,22 @@ class Workout {
   }
 }
 
+class Cycling extends Workout {
+  type = 'cycling';
+  MET = 7.5;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
+  }
+}
+
+class Hiking extends Workout {
+  type = 'hiking';
+  MET = 6.5;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
+  }
+}
+
 class Jogging extends Workout {
   type = 'jogging';
   MET = 8;
@@ -49,9 +64,49 @@ class Jogging extends Workout {
   }
 }
 
-class Cycling extends Workout {
-  type = 'cycling';
+class Kayaking extends Workout {
+  type = 'kayaking';
+  MET = 5;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
+  }
+}
+
+class Rollerblading extends Workout {
+  type = 'rollerblading';
   MET = 7.5;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
+  }
+}
+
+class Sailing extends Workout {
+  type = 'sailing';
+  MET = 3;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
+  }
+}
+
+class Skiing extends Workout {
+  type = 'skiing';
+  MET = 7;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
+  }
+}
+
+class Swimming extends Workout {
+  type = 'swimming';
+  MET = 5.8;
+  constructor(coords, distance, duration, weight) {
+    super(coords, distance, duration, weight);
+  }
+}
+
+class Walking extends Workout {
+  type = 'walking';
+  MET = 3.5;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
   }
@@ -151,16 +206,67 @@ class App {
       return;
     }
 
-    // Create a new object based on workout type (Jogging)
+    // Create a new object based on workout type
+    // Cycling
+    if (type === 'cycling') {
+      workout = new Cycling(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      this.#workouts.push(workout);
+    }
+
+    // Hiking
+    if (type === 'hiking') {
+      workout = new Hiking(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      console.log(workout.type);
+      this.#workouts.push(workout);
+    }
+
+    // Jogging
     if (type === 'jogging') {
       workout = new Jogging(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
-    // Create a new object based on workout type (Cycling)
-    if (type === 'cycling') {
-      workout = new Cycling(this.coords, distance, duration, this.weight);
+    // Kayaking
+    if (type === 'kayaking') {
+      workout = new Kayaking(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      this.#workouts.push(workout);
+    }
+
+    // Rollerblading
+    if (type === 'rollerblading') {
+      workout = new Rollerblading(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      this.#workouts.push(workout);
+    }
+
+    // Sailing
+    if (type === 'sailing') {
+      workout = new Sailing(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      this.#workouts.push(workout);
+    }
+
+    // Skiing
+    if (type === 'skiing') {
+      workout = new Skiing(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      this.#workouts.push(workout);
+    }
+
+    // Swimming
+    if (type === 'swimming') {
+      workout = new Swimming(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      this.#workouts.push(workout);
+    }
+
+    // Walking
+    if (type === 'walking') {
+      workout = new Walking(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
@@ -249,3 +355,6 @@ const app = new App();
 
 // const cycling = new Cycling(333, 2, 10);
 // console.log(cycling.calcSpeed());
+
+// const hiking = new Hiking(333, 2, 10, 55);
+// console.log(hiking.type);
