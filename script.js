@@ -347,7 +347,9 @@ class App {
       autoClose: false,
       closeOnClick: false,
       className: 'popup',
-    }).setContent(workout._setDescription());
+    }).setContent(
+      `${this._checkWorkoutType(workout.type)} ${workout._setDescription()}`
+    );
 
     L.marker([...workout.coords], { icon: greyIcon })
       .addTo(this.#map)
