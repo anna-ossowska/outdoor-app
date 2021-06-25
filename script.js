@@ -25,7 +25,7 @@ class Workout {
   }
 
   calcSpeed() {
-    this.speed = (this.distance / (this.duration / 60)).toFixed(1);
+    this.speed = (this.distance / (this.duration / 60)).toFixed();
     return this.speed;
   }
 
@@ -312,7 +312,9 @@ class App {
   _addWorkoutToUI(workout) {
     const html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
-        <h2 class="workout__header">Jogging on
+        <h2 class="workout__header">${
+          workout.type[0].toUpperCase() + workout.type.slice(1)
+        } on
         ${months[workout.date.getMonth()]} ${workout.date.getDate()}</h2>
         <div class="workout__details">
           <span class="workout__distance">${this._checkWorkoutType(
@@ -320,6 +322,7 @@ class App {
           )} ${workout.distance} km</span>
           <span class="workout__duration">⏱️ ${workout.duration} min</span>
           <span class="workout__speed">💨 ${workout.calcSpeed()} km/h</span>
+          <span class="workout__kcal">🔥 ${workout.calcKcal()} kcal</span>
         </div>
       </li>
     `;
@@ -368,6 +371,7 @@ class App {
     e.preventDefault();
     modal.classList.add('modal--hidden');
     overlay.classList.add('overlay--hidden');
+
     this.weight = +modalInput.value;
   }
 }

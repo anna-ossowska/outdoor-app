@@ -209,9 +209,10 @@ label {
     padding-bottom: 1.75rem; }
   .workout__details {
     font-size: 1.75rem;
-    display: flex; }
-  .workout__distance, .workout__duration, .workout__speed {
-    margin-right: 4rem; }
+    display: flex;
+    justify-content: stretch; }
+  .workout__distance, .workout__duration, .workout__speed, .workout__kcal {
+    margin-right: 3rem; }
   .workout:not(:last-child) {
     margin-bottom: 2rem; }
 

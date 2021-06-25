@@ -26,12 +26,14 @@
   &__details {
     font-size: 1.75rem;
     display: flex;
+    justify-content: stretch;
   }
 
   &__distance,
   &__duration,
-  &__speed {
-    margin-right: 4rem;
+  &__speed,
+  &__kcal {
+    margin-right: 3rem;
   }
 
   &:not(:last-child) {
