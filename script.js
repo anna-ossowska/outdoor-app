@@ -72,17 +72,17 @@ class Kayaking extends Workout {
   }
 }
 
-class Rollerblading extends Workout {
-  type = 'rollerblading';
-  MET = 7.5;
+class Sailing extends Workout {
+  type = 'sailing';
+  MET = 3;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
   }
 }
 
-class Sailing extends Workout {
-  type = 'sailing';
-  MET = 3;
+class Skating extends Workout {
+  type = 'skating';
+  MET = 7;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
   }
@@ -207,14 +207,14 @@ class App {
     }
 
     // Create a new object based on workout type
-    // Cycling
+    // 1. Cycling
     if (type === 'cycling') {
       workout = new Cycling(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
-    // Hiking
+    // 2. Hiking
     if (type === 'hiking') {
       workout = new Hiking(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
@@ -222,49 +222,49 @@ class App {
       this.#workouts.push(workout);
     }
 
-    // Jogging
+    // 3. Jogging
     if (type === 'jogging') {
       workout = new Jogging(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
-    // Kayaking
+    // 4. Kayaking
     if (type === 'kayaking') {
       workout = new Kayaking(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
-    // Rollerblading
-    if (type === 'rollerblading') {
-      workout = new Rollerblading(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
-      this.#workouts.push(workout);
-    }
-
-    // Sailing
+    // 5. Sailing
     if (type === 'sailing') {
       workout = new Sailing(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
-    // Skiing
+    // 6. Skating
+    if (type === 'skating') {
+      workout = new Skating(this.coords, distance, duration, this.weight);
+      console.log(workout.calcKcal());
+      this.#workouts.push(workout);
+    }
+
+    // 7. Skiing
     if (type === 'skiing') {
       workout = new Skiing(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
-    // Swimming
+    // 8. Swimming
     if (type === 'swimming') {
       workout = new Swimming(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
-    // Walking
+    // 9. Walking
     if (type === 'walking') {
       workout = new Walking(this.coords, distance, duration, this.weight);
       console.log(workout.calcKcal());
@@ -287,12 +287,36 @@ class App {
   }
 
   _addWorkoutToUI(workout) {
+    const checkWorkoutType = function (type) {
+      switch (type) {
+        case 'cycling':
+          return '🚴‍♂️';
+        case 'hiking':
+          return '⛰️';
+        case 'jogging':
+          return '🏃🏼‍♀️';
+        case 'kayaking':
+          return '🚣‍♀️';
+        case 'sailing':
+          return '⛵';
+        case 'skating':
+          return '⛸️';
+        case 'skiing':
+          return '🎿';
+        case 'swimming':
+          return '🏊🏿‍♀️';
+        case 'walking':
+          return '🚶🏻‍♀️';
+      }
+    };
     const html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
         <h2 class="workout__header">Jogging on
         ${months[workout.date.getMonth()]} ${workout.date.getDate()}</h2>
         <div class="workout__details">
-          <span class="workout__distance">🏃🏼‍♀️ ${workout.distance} km</span>
+          <span class="workout__distance">${checkWorkoutType(workout.type)} ${
+      workout.distance
+    } km</span>
           <span class="workout__duration">⏱️ ${workout.duration} min</span>
           <span class="workout__speed">💨 ${workout.calcSpeed()} km/h</span>
         </div>
