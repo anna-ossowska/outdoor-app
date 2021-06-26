@@ -119,6 +119,7 @@ class App {
   weight;
   constructor() {
     this._getPosition();
+
     form.addEventListener('submit', this._newWorkout.bind(this));
 
     // Modal
@@ -284,6 +285,13 @@ class App {
 
     // Hide form
     this._hideForm();
+
+    // set the LocalStorage
+    this._setLocalStorage();
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
   }
 
   _checkWorkoutType(type) {
