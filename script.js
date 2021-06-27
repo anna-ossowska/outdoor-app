@@ -159,8 +159,8 @@ class App {
     );
 
     // Modal
-    window.addEventListener('load', this._showModal.bind(this));
-    modal.addEventListener('submit', this._hideModal.bind(this));
+    // window.addEventListener('load', this._showModal.bind(this));
+    // modal.addEventListener('submit', this._hideModal.bind(this));
   }
 
   _getPosition() {
@@ -185,6 +185,8 @@ class App {
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }
     ).addTo(this.#map);
+
+    this.#workouts.forEach(workout => this._renderMarkerAndPopup(workout));
 
     this.#map.on('click', this._showForm.bind(this));
   }
@@ -332,29 +334,31 @@ class App {
   }
 
   _deleteWorkoutFromLocalStorage(e) {
-    const selectedWorkout = e.target.closest('.workout');
-    if (!selectedWorkout) return;
+    if (e.target.classList.contains('workout__delete')) {
+      const selectedWorkout = e.target.closest('.workout');
+      if (!selectedWorkout) return;
 
-    const selectedWorkoutId = selectedWorkout.dataset.id;
-    if (!selectedWorkoutId) return;
+      const selectedWorkoutId = selectedWorkout.dataset.id;
+      if (!selectedWorkoutId) return;
 
-    // Get all workouts from the Local Storage
-    const data = JSON.parse(localStorage.getItem('workouts'));
-    if (!data) return;
-    this.#workouts = data;
+      // Get all workouts from the Local Storage
+      const data = JSON.parse(localStorage.getItem('workouts'));
+      if (!data) return;
+      this.#workouts = data;
 
-    // Remove selected Wrokout from the Local Storage
-    const filteredWorkouts = this.#workouts.filter(
-      workout => workout.id !== selectedWorkoutId
-    );
+      // Remove selected Wrokout from the Local Storage
+      const filteredWorkouts = this.#workouts.filter(
+        workout => workout.id !== selectedWorkoutId
+      );
 
-    // Remove marker and popup
+      // Remove marker and popup
 
-    // Hide selected workout from UI
-    selectedWorkout.style.display = 'none';
+      // Hide selected workout from UI
+      selectedWorkout.style.display = 'none';
 
-    // Update the Local Storage
-    this._setLocalStorage(filteredWorkouts);
+      // Update the Local Storage
+      this._setLocalStorage(filteredWorkouts);
+    }
   }
 
   _checkWorkoutType(type) {
