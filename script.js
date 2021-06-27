@@ -143,6 +143,7 @@ class Walking extends Workout {
 
 class App {
   #map;
+  #mapZoom = 13;
   #mapEvent;
   #workouts = [];
   weight;
@@ -157,6 +158,11 @@ class App {
     workoutsContainer.addEventListener(
       'click',
       this._deleteWorkoutFromLocalStorage.bind(this)
+    );
+
+    workoutsContainer.addEventListener(
+      'click',
+      this._moveToLocation.bind(this)
     );
 
     // Modal
@@ -179,7 +185,7 @@ class App {
     console.log(this.markers);
     const { latitude: lat, longitude: long } = position.coords;
 
-    this.#map = L.map('map').setView([lat, long], 13);
+    this.#map = L.map('map').setView([lat, long], this.#mapZoom);
 
     L.tileLayer(
       'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
@@ -344,48 +350,47 @@ class App {
 
   _deleteWorkoutFromLocalStorage(e) {
     if (e.target.classList.contains('workout__delete')) {
-      const selectedWorkout = e.target.closest('.workout');
-      if (!selectedWorkout) return;
+      const workoutEl = e.target.closest('.workout');
+      if (!workoutEl) return;
 
-      const selectedWorkoutId = selectedWorkout.dataset.id;
-      if (!selectedWorkoutId) return;
+      const WorkoutElId = workoutEl.dataset.id;
+      if (!WorkoutElId) return;
 
       // Get all workouts from the Local Storage
       this._getWorkoutsFromLocalStorage();
 
       // Remove selected Wrokout from the Local Storage
       const filteredWorkouts = this.#workouts.filter(
-        workout => workout.id !== selectedWorkoutId
+        workout => workout.id !== WorkoutElId
       );
 
       // Hide selected workout from UI
-      selectedWorkout.style.display = 'none';
+      workoutEl.style.display = 'none';
+
+      // Remove markers
+      this._removeMarkers(WorkoutElId);
 
       // Update the Local Storage
       this._setLocalStorage(filteredWorkouts);
-
-      //// REMOVE MARKER AND POPUP
-
-      // Find workout by its id
-      const workoutToDelete = this.#workouts.find(
-        workout => workout.id === selectedWorkoutId
-      );
-
-      if (!workoutToDelete) return;
-
-      // Find marker by its coordinates
-      const markerToDelete = this.markers.find(marker => {
-        const { lat, lng } = marker._latlng;
-        return (
-          lat === workoutToDelete.coords[0] && lng === workoutToDelete.coords[1]
-        );
-      });
-
-      if (!markerToDelete) return;
-
-      // Remove marker from the map
-      this.#map.removeLayer(markerToDelete);
     }
+  }
+
+  _removeMarkers(id) {
+    // Find workout by its id
+    const workout = this.#workouts.find(workout => workout.id === id);
+
+    if (!workout) return;
+
+    // Find marker by its coordinates
+    const marker = this.markers.find(marker => {
+      const { lat, lng } = marker._latlng;
+      return lat === workout.coords[0] && lng === workout.coords[1];
+    });
+
+    if (!marker) return;
+
+    // Remove marker from the map
+    this.#map.removeLayer(marker);
   }
 
   _checkWorkoutType(type) {
@@ -463,6 +468,21 @@ class App {
       .openPopup();
 
     this.markers.push(marker);
+  }
+
+  _moveToLocation(e) {
+    if (!e.target.classList.contains('workout__delete')) {
+      const workoutEl = e.target.closest('.workout');
+      if (!workoutEl) return;
+      const workoutId = workoutEl.dataset.id;
+
+      const workout = this.#workouts.find(workout => workout.id === workoutId);
+
+      this.#map.setView(workout.coords, this.#mapZoom, {
+        animate: true,
+        duration: 1,
+      });
+    }
   }
 
   _showModal() {
