@@ -30,13 +30,15 @@ class Workout {
   }
 
   calcKcal() {
-    return ((this.duration * this.MET * 3.5 * this.weight) / 200).toFixed();
+    this.kcal = (
+      (this.duration * this.MET * 3.5 * this.weight) /
+      200
+    ).toFixed();
   }
 
   _setDescription() {
-    return `${
-      this.type[0].toUpperCase() + this.type.slice(1)
-    } on ${this.date.getDate()} ${months[this.date.getMonth()]}`;
+    // prettier-ignore
+    this.description = `${this.type[0].toUpperCase() + this.type.slice(1)} on ${this.date.getDate()} ${months[this.date.getMonth()]}`;
   }
 }
 
@@ -45,6 +47,9 @@ class Cycling extends Workout {
   MET = 7.5;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -53,6 +58,9 @@ class Hiking extends Workout {
   MET = 6.5;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -61,6 +69,9 @@ class Jogging extends Workout {
   MET = 8;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -69,6 +80,9 @@ class Kayaking extends Workout {
   MET = 5;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -77,6 +91,9 @@ class Sailing extends Workout {
   MET = 3;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -85,6 +102,9 @@ class Skating extends Workout {
   MET = 7;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -93,6 +113,9 @@ class Skiing extends Workout {
   MET = 7;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -101,6 +124,9 @@ class Swimming extends Workout {
   MET = 5.8;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -109,6 +135,9 @@ class Walking extends Workout {
   MET = 3.5;
   constructor(coords, distance, duration, weight) {
     super(coords, distance, duration, weight);
+    this.calcSpeed();
+    this.calcKcal();
+    this._setDescription();
   }
 }
 
@@ -118,6 +147,8 @@ class App {
   #workouts = [];
   weight;
   constructor() {
+    this._getFromLocalStorage();
+
     this._getPosition();
 
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -178,8 +209,8 @@ class App {
     console.log(this.weight);
 
     // Data comming from the form
-    const distance = inputDistance.value;
-    const duration = inputDuration.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
     const type = inputType.value;
 
     let workout;
@@ -294,6 +325,18 @@ class App {
     localStorage.setItem('workouts', JSON.stringify(this.#workouts));
   }
 
+  _getFromLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(workout => {
+      this._addWorkoutToUI(workout);
+    });
+  }
+
   _checkWorkoutType(type) {
     switch (type) {
       case 'cycling':
@@ -320,17 +363,14 @@ class App {
   _addWorkoutToUI(workout) {
     const html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
-        <h2 class="workout__header">${
-          workout.type[0].toUpperCase() + workout.type.slice(1)
-        } on
-        ${months[workout.date.getMonth()]} ${workout.date.getDate()}</h2>
+        <h2 class="workout__header">${workout.description}</h2>
         <div class="workout__details">
           <span class="workout__distance">${this._checkWorkoutType(
             workout.type
           )} ${workout.distance} km</span>
           <span class="workout__duration">⏱️ ${workout.duration} min</span>
-          <span class="workout__speed">💨 ${workout.calcSpeed()} km/h</span>
-          <span class="workout__kcal">🔥 ${workout.calcKcal()} kcal</span>
+          <span class="workout__speed">💨 ${workout.speed} km/h</span>
+          <span class="workout__kcal">🔥 ${workout.kcal} kcal</span>
         </div>
       </li>
     `;
@@ -359,7 +399,7 @@ class App {
       closeOnClick: false,
       className: 'popup',
     }).setContent(
-      `${this._checkWorkoutType(workout.type)} ${workout._setDescription()}`
+      `${this._checkWorkoutType(workout.type)} ${workout.description}`
     );
 
     L.marker([...workout.coords], { icon: greyIcon })

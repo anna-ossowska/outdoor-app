@@ -225,7 +225,7 @@ label {
     display: flex;
     justify-content: stretch; }
   .workout__distance, .workout__duration, .workout__speed, .workout__kcal {
-    margin-right: 3rem; }
+    margin-right: 2.5rem; }
   .workout:not(:last-child) {
     margin-bottom: 2rem; }
 
