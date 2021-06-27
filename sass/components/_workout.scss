@@ -7,6 +7,7 @@
   padding: 2rem 2rem 2rem 3.5rem;
   opacity: 0.9;
   transition: opacity, 0.25s ease-in;
+  position: relative;
 
   &::after {
     content: '';
@@ -19,8 +20,28 @@
   }
 
   &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__description {
     font-size: 1.75rem;
     padding-bottom: 1.75rem;
+  }
+
+  &__delete {
+    cursor: pointer;
+    font-size: 2.5rem;
+    padding: 0 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   &__details {
@@ -33,7 +54,7 @@
   &__duration,
   &__speed,
   &__kcal {
-    margin-right: 2.5rem;
+    margin-right: 2.25rem;
   }
 
   &:not(:last-child) {

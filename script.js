@@ -147,11 +147,16 @@ class App {
   #workouts = [];
   weight;
   constructor() {
-    this._getFromLocalStorage();
+    this._getWorkoutsFromLocalStorage();
 
     this._getPosition();
 
     form.addEventListener('submit', this._newWorkout.bind(this));
+
+    workoutsContainer.addEventListener(
+      'click',
+      this._deleteWorkoutFromLocalStorage.bind(this)
+    );
 
     // Modal
     window.addEventListener('load', this._showModal.bind(this));
@@ -205,9 +210,6 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
 
-    // WEIGHT saved inside app obj
-    console.log(this.weight);
-
     // Data comming from the form
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
@@ -242,14 +244,12 @@ class App {
     // 1. Cycling
     if (type === 'cycling') {
       workout = new Cycling(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     // 2. Hiking
     if (type === 'hiking') {
       workout = new Hiking(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       console.log(workout.type);
       this.#workouts.push(workout);
     }
@@ -257,49 +257,43 @@ class App {
     // 3. Jogging
     if (type === 'jogging') {
       workout = new Jogging(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     // 4. Kayaking
     if (type === 'kayaking') {
       workout = new Kayaking(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     // 5. Sailing
     if (type === 'sailing') {
       workout = new Sailing(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     // 6. Skating
     if (type === 'skating') {
       workout = new Skating(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
+
       this.#workouts.push(workout);
     }
 
     // 7. Skiing
     if (type === 'skiing') {
       workout = new Skiing(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     // 8. Swimming
     if (type === 'swimming') {
       workout = new Swimming(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
     // 9. Walking
     if (type === 'walking') {
       workout = new Walking(this.coords, distance, duration, this.weight);
-      console.log(workout.calcKcal());
       this.#workouts.push(workout);
     }
 
@@ -318,14 +312,14 @@ class App {
     this._hideForm();
 
     // set the LocalStorage
-    this._setLocalStorage();
+    this._setLocalStorage(this.#workouts);
   }
 
-  _setLocalStorage() {
-    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  _setLocalStorage(workouts) {
+    localStorage.setItem('workouts', JSON.stringify(workouts));
   }
 
-  _getFromLocalStorage() {
+  _getWorkoutsFromLocalStorage() {
     const data = JSON.parse(localStorage.getItem('workouts'));
 
     if (!data) return;
@@ -335,6 +329,32 @@ class App {
     this.#workouts.forEach(workout => {
       this._addWorkoutToUI(workout);
     });
+  }
+
+  _deleteWorkoutFromLocalStorage(e) {
+    const selectedWorkout = e.target.closest('.workout');
+    if (!selectedWorkout) return;
+
+    const selectedWorkoutId = selectedWorkout.dataset.id;
+    if (!selectedWorkoutId) return;
+
+    // Get all workouts from the Local Storage
+    const data = JSON.parse(localStorage.getItem('workouts'));
+    if (!data) return;
+    this.#workouts = data;
+
+    // Remove selected Wrokout from the Local Storage
+    const filteredWorkouts = this.#workouts.filter(
+      workout => workout.id !== selectedWorkoutId
+    );
+
+    // Remove marker and popup
+
+    // Hide selected workout from UI
+    selectedWorkout.style.display = 'none';
+
+    // Update the Local Storage
+    this._setLocalStorage(filteredWorkouts);
   }
 
   _checkWorkoutType(type) {
@@ -363,7 +383,11 @@ class App {
   _addWorkoutToUI(workout) {
     const html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
-        <h2 class="workout__header">${workout.description}</h2>
+      <div class="workout__header">
+        <h2 class="workout__description">${workout.description}</h2>
+        <p class="workout__delete">&times;</p>
+      </div>
+
         <div class="workout__details">
           <span class="workout__distance">${this._checkWorkoutType(
             workout.type

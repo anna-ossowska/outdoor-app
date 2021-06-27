@@ -208,7 +208,8 @@ label {
   border-radius: 0.5rem;
   padding: 2rem 2rem 2rem 3.5rem;
   opacity: 0.9;
-  transition: opacity, 0.25s ease-in; }
+  transition: opacity, 0.25s ease-in;
+  position: relative; }
   .workout::after {
     content: '';
     position: absolute;
@@ -218,14 +219,28 @@ label {
     height: 100%;
     background-color: #51c9e1; }
   .workout__header {
+    display: flex;
+    justify-content: space-between; }
+  .workout__description {
     font-size: 1.75rem;
     padding-bottom: 1.75rem; }
+  .workout__delete {
+    cursor: pointer;
+    font-size: 2.5rem;
+    padding: 0 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out; }
+    .workout__delete:hover {
+      opacity: 1; }
   .workout__details {
     font-size: 1.75rem;
     display: flex;
     justify-content: stretch; }
   .workout__distance, .workout__duration, .workout__speed, .workout__kcal {
-    margin-right: 2.5rem; }
+    margin-right: 2.25rem; }
   .workout:not(:last-child) {
     margin-bottom: 2rem; }
 
