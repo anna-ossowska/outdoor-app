@@ -146,8 +146,9 @@ class App {
   #mapEvent;
   #workouts = [];
   weight;
+  markers = [];
   constructor() {
-    this._getWorkoutsFromLocalStorage();
+    this._displayWorkoutsFromLocalStorage();
 
     this._getPosition();
 
@@ -174,6 +175,8 @@ class App {
   }
 
   _loadMap(position) {
+    console.log(this.popups);
+    console.log(this.markers);
     const { latitude: lat, longitude: long } = position.coords;
 
     this.#map = L.map('map').setView([lat, long], 13);
@@ -317,6 +320,8 @@ class App {
     this._setLocalStorage(this.#workouts);
   }
 
+  // LOCAL STORAGE
+
   _setLocalStorage(workouts) {
     localStorage.setItem('workouts', JSON.stringify(workouts));
   }
@@ -326,7 +331,11 @@ class App {
 
     if (!data) return;
 
-    this.#workouts = data;
+    return (this.#workouts = data);
+  }
+
+  _displayWorkoutsFromLocalStorage() {
+    this._getWorkoutsFromLocalStorage();
 
     this.#workouts.forEach(workout => {
       this._addWorkoutToUI(workout);
@@ -342,22 +351,40 @@ class App {
       if (!selectedWorkoutId) return;
 
       // Get all workouts from the Local Storage
-      const data = JSON.parse(localStorage.getItem('workouts'));
-      if (!data) return;
-      this.#workouts = data;
+      this._getWorkoutsFromLocalStorage();
 
       // Remove selected Wrokout from the Local Storage
       const filteredWorkouts = this.#workouts.filter(
         workout => workout.id !== selectedWorkoutId
       );
 
-      // Remove marker and popup
-
       // Hide selected workout from UI
       selectedWorkout.style.display = 'none';
 
       // Update the Local Storage
       this._setLocalStorage(filteredWorkouts);
+
+      //// REMOVE MARKER AND POPUP
+
+      // Find workout by its id
+      const workoutToDelete = this.#workouts.find(
+        workout => workout.id === selectedWorkoutId
+      );
+
+      if (!workoutToDelete) return;
+
+      // Find marker by its coordinates
+      const markerToDelete = this.markers.find(marker => {
+        const { lat, lng } = marker._latlng;
+        return (
+          lat === workoutToDelete.coords[0] && lng === workoutToDelete.coords[1]
+        );
+      });
+
+      if (!markerToDelete) return;
+
+      // Remove marker from the map
+      this.#map.removeLayer(markerToDelete);
     }
   }
 
@@ -430,10 +457,12 @@ class App {
       `${this._checkWorkoutType(workout.type)} ${workout.description}`
     );
 
-    L.marker([...workout.coords], { icon: greyIcon })
+    const marker = L.marker([...workout.coords], { icon: greyIcon })
       .addTo(this.#map)
       .bindPopup(popup)
       .openPopup();
+
+    this.markers.push(marker);
   }
 
   _showModal() {
@@ -453,15 +482,3 @@ class App {
 }
 
 const app = new App();
-
-// const workout = new Workout(222, 5, 40);
-// console.log(workout);
-
-// const jogging = new Jogging(222, 1, 5);
-// console.log(jogging.calcSpeed());
-
-// const cycling = new Cycling(333, 2, 10);
-// console.log(cycling.calcSpeed());
-
-// const hiking = new Hiking(333, 2, 10, 55);
-// console.log(hiking.type);
