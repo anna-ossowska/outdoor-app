@@ -157,6 +157,8 @@ class App {
 
     this._getPosition();
 
+    window.addEventListener('load', this._displayInfoMsg.bind(this));
+
     form.addEventListener('submit', this._newWorkout.bind(this));
 
     workoutsContainer.addEventListener(
@@ -170,8 +172,8 @@ class App {
     );
 
     // Modal
-    // window.addEventListener('load', this._showModal.bind(this));
-    // modal.addEventListener('submit', this._hideModal.bind(this));
+    window.addEventListener('load', this._showModal.bind(this));
+    modal.addEventListener('submit', this._hideModal.bind(this));
   }
 
   _getPosition() {
@@ -328,6 +330,9 @@ class App {
 
     // set the LocalStorage
     this._setLocalStorage(this.#workouts);
+
+    // Display message
+    this._displaySuccessMsg();
   }
 
   // LOCAL STORAGE
@@ -376,6 +381,9 @@ class App {
 
       // Update the Local Storage
       this._setLocalStorage(filteredWorkouts);
+
+      // Display message
+      this._displayDangerMsg();
     }
   }
 
@@ -487,6 +495,28 @@ class App {
         duration: 1,
       });
     }
+  }
+
+  // UI messages
+  _displayInfoMsg() {
+    if (this.#workouts.length === 0) {
+      msgInfo.classList.remove('message--hidden');
+
+      // If click on map detected, remove the info message
+      this.#map.on('click', function () {
+        msgInfo.classList.add('message--hidden');
+      });
+    }
+  }
+
+  _displaySuccessMsg() {
+    msgSuccess.classList.remove('message--hidden');
+    setTimeout(() => msgSuccess.classList.add('message--hidden'), 4000);
+  }
+
+  _displayDangerMsg() {
+    msgDanger.classList.remove('message--hidden');
+    setTimeout(() => msgDanger.classList.add('message--hidden'), 4000);
   }
 
   _showModal() {
