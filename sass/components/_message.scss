@@ -1,0 +1,32 @@
+.message {
+  position: absolute;
+  top: 7rem;
+  left: 86rem;
+  z-index: 10;
+  padding: 1.75rem 2.25rem;
+  border-radius: $border-radius-main;
+  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0.92;
+  width: 40rem;
+  transition: all 0.8s ease-in-out;
+
+  &--info {
+    background-color: $color-info;
+  }
+
+  &--success {
+    background-color: $color-success;
+  }
+
+  &--danger {
+    background-color: $color-danger;
+  }
+
+  &--hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+}

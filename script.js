@@ -11,6 +11,10 @@ const modalInput = document.querySelector('.modal__input');
 const modalSubmit = document.querySelector('.modal__submit');
 const modalForm = document.querySelector('.modal__form');
 
+const msgInfo = document.querySelector('.message--info');
+const msgSuccess = document.querySelector('.message--success');
+const msgDanger = document.querySelector('.message--danger');
+
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

@@ -5,11 +5,12 @@
 @import 'base/typography';
 @import 'base/utilities';
 
-@import 'layout/map';
-@import 'layout/sidebar';
-
 @import 'components/button';
 @import 'components/form';
+@import 'components/message';
 @import 'components/modal';
 @import 'components/workout';
 @import 'components/popup';
+
+@import 'layout/map';
+@import 'layout/sidebar';
