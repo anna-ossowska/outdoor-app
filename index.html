@@ -18,6 +18,7 @@
       crossorigin=""
     ></script>
 
+    <script defer src="./secret.js"></script>
     <script defer src="./script.js"></script>
     <title>Outdoor</title>
   </head>
@@ -111,8 +112,10 @@
       </ul>
     </div>
 
+    <!-- map -->
     <div id="map"></div>
 
+    <!-- modal -->
     <div class="modal modal--hidden">
       <div class="modal__container">
         <h2 class="modal__header">Please provide your weight in kg</h2>
@@ -126,18 +129,25 @@
       </div>
     </div>
 
+    <!-- overlay -->
     <div class="overlay overlay--hidden"></div>
 
+    <!-- messages -->
     <div class="message message--info message--hidden">
       Click on the map to add a new workout
     </div>
-
     <div class="message message--success message--hidden">
       Workout has been successfully added
     </div>
-
     <div class="message message--danger message--hidden">
       Workout has been successfully deleted
+    </div>
+
+    <!-- weather -->
+    <div class="weather">
+      <h3 class="weather__location"></h3>
+      <img src="" class="weather__icon" />
+      <p class="weather__temp"></p>
     </div>
   </body>
 </html>

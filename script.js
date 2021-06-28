@@ -1,3 +1,6 @@
+'use strict';
+
+// Main selectors
 const form = document.querySelector('form');
 const btn = document.querySelector('.btn');
 const inputDistance = document.getElementById('distance');
@@ -5,15 +8,22 @@ const inputDuration = document.getElementById('duration');
 const inputType = document.getElementById('type');
 const workoutsContainer = document.querySelector('.workouts');
 
+// Modal
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const modalInput = document.querySelector('.modal__input');
 const modalSubmit = document.querySelector('.modal__submit');
 const modalForm = document.querySelector('.modal__form');
 
+// Messages
 const msgInfo = document.querySelector('.message--info');
 const msgSuccess = document.querySelector('.message--success');
 const msgDanger = document.querySelector('.message--danger');
+
+// Weather
+const weatherLocation = document.querySelector('.weather__location');
+const weatherIcon = document.querySelector('.weather__icon');
+const weatherTemp = document.querySelector('.weather__temp');
 
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -193,6 +203,9 @@ class App {
 
     this.#map = L.map('map').setView([lat, long], this.#mapZoom);
 
+    // render the local weather
+    this._renderWeather(lat, long);
+
     L.tileLayer(
       'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
       {
@@ -204,6 +217,26 @@ class App {
     this.#workouts.forEach(workout => this._renderMarkerAndPopup(workout));
 
     this.#map.on('click', this._showForm.bind(this));
+  }
+
+  _renderWeather(lat, long) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=${API_KEY}`;
+
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('Weather cannot be displayed');
+        return res.json();
+      })
+      .then(data => {
+        console.log(data);
+        weatherLocation.innerHTML = `${data.name}, ${data.sys.country} `;
+        weatherIcon.src = `./images/${data.weather[0].icon}.png`;
+        weatherTemp.innerHTML = `${data.main.temp.toFixed(1)}°​C`;
+      })
+
+      .catch(err => {
+        console.error(err.message);
+      });
   }
 
   _showForm(e) {
@@ -333,6 +366,9 @@ class App {
 
     // Display message
     this._displaySuccessMsg();
+
+    // Render weather
+    this._renderWeather(workout.coords[0], workout.coords[1]);
   }
 
   // LOCAL STORAGE
@@ -494,6 +530,9 @@ class App {
         animate: true,
         duration: 1,
       });
+
+      // Render weather
+      this._renderWeather(workout.coords[0], workout.coords[1]);
     }
   }
 
