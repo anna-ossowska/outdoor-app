@@ -182,8 +182,8 @@ class App {
     );
 
     // Modal
-    window.addEventListener('load', this._showModal.bind(this));
-    modal.addEventListener('submit', this._hideModal.bind(this));
+    // window.addEventListener('load', this._showModal.bind(this));
+    // modal.addEventListener('submit', this._hideModal.bind(this));
   }
 
   _getPosition() {

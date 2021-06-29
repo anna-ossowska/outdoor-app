@@ -2,4 +2,10 @@
   flex-basis: 70%;
   padding: 2rem;
   z-index: 1;
+
+  @include respond(tab-land) {
+    flex-basis: auto;
+    height: 50vh;
+    overflow-x: hidden;
+  }
 }

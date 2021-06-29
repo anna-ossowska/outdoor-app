@@ -8,6 +8,12 @@
 
 html {
   font-size: 62.5%; }
+  @media only screen and (max-width: 75em) {
+    html {
+      font-size: 50%; } }
+  @media only screen and (max-width: 37.5em) {
+    html {
+      font-size: 30%; } }
 
 body {
   box-sizing: border-box;
@@ -16,6 +22,15 @@ body {
   display: flex;
   height: 100vh;
   overscroll-behavior-y: none; }
+  @media only screen and (max-width: 75em) {
+    body {
+      overflow-x: hidden;
+      padding: 3rem;
+      flex-direction: column-reverse;
+      height: 100%; } }
+  @media only screen and (max-width: 37.5em) {
+    body {
+      padding: 0; } }
 
 body {
   font-family: 'Raleway', sans-serif;
@@ -213,6 +228,32 @@ label {
     visibility: hidden;
     opacity: 0; }
 
+.weather {
+  position: absolute;
+  bottom: 8rem;
+  right: 7rem;
+  z-index: 2;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  color: #2d3439;
+  text-align: center;
+  min-width: 17rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2); }
+  .weather__location {
+    font-size: 2rem; }
+  .weather__icon {
+    width: 5rem;
+    padding: 0; }
+  .weather__temp {
+    color: #a6a6a6;
+    font-weight: 600;
+    font-size: 1.75rem; }
+
 .workout {
   position: relative;
   list-style: none;
@@ -285,6 +326,11 @@ label {
   flex-basis: 70%;
   padding: 2rem;
   z-index: 1; }
+  @media only screen and (max-width: 75em) {
+    #map {
+      flex-basis: auto;
+      height: 50vh;
+      overflow-x: hidden; } }
 
 .sidebar {
   background-color: #2d3439;
@@ -292,5 +338,9 @@ label {
   padding: 5rem;
   overflow-x: hidden;
   overflow-y: scroll; }
+  @media only screen and (max-width: 75em) {
+    .sidebar {
+      flex-basis: auto;
+      height: 100vh; } }
   .sidebar::-webkit-scrollbar {
     display: none; }

@@ -8,6 +8,14 @@
 
 html {
   font-size: 62.5%;
+
+  @include respond(tab-land) {
+    font-size: 50%;
+  }
+
+  @include respond(phone) {
+    font-size: 30%;
+  }
 }
 
 body {
@@ -17,4 +25,15 @@ body {
   display: flex;
   height: 100vh;
   overscroll-behavior-y: none;
+
+  @include respond(tab-land) {
+    overflow-x: hidden;
+    padding: 3rem;
+    flex-direction: column-reverse;
+    height: 100%;
+  }
+
+  @include respond(phone) {
+    padding: 0;
+  }
 }

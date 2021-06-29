@@ -5,6 +5,11 @@
   overflow-x: hidden;
   overflow-y: scroll;
 
+  @include respond(tab-land) {
+    flex-basis: auto;
+    height: 100vh;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
