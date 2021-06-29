@@ -15,6 +15,20 @@
   align-items: center;
   box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
 
+  @include respond(tab-land) {
+    bottom: 87rem;
+    right: 6rem;
+  }
+
+  @include respond(tab-port) {
+    bottom: 66rem;
+    right: 6rem;
+  }
+
+  @include respond(phone) {
+    display: none;
+  }
+
   &__location {
     font-size: 2rem;
   }

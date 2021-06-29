@@ -13,7 +13,7 @@ html {
       font-size: 50%; } }
   @media only screen and (max-width: 37.5em) {
     html {
-      font-size: 30%; } }
+      font-size: 33%; } }
 
 body {
   box-sizing: border-box;
@@ -244,6 +244,17 @@ label {
   justify-content: center;
   align-items: center;
   box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2); }
+  @media only screen and (max-width: 75em) {
+    .weather {
+      bottom: 87rem;
+      right: 6rem; } }
+  @media only screen and (max-width: 56.25em) {
+    .weather {
+      bottom: 66rem;
+      right: 6rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .weather {
+      display: none; } }
   .weather__location {
     font-size: 2rem; }
   .weather__icon {
@@ -321,6 +332,20 @@ label {
   letter-spacing: 0.05rem !important;
   font-size: 1.5rem !important;
   font-weight: 300 !important; }
+  @media only screen and (max-width: 37.5em) {
+    .leaflet-popup .leaflet-popup-content {
+      font-size: 1.75rem !important; } }
+
+.leaflet-container a.leaflet-popup-close-button {
+  transition: color 0.25s ease-in-out; }
+  @media only screen and (max-width: 75em) {
+    .leaflet-container a.leaflet-popup-close-button {
+      font-size: 1.4rem !important; } }
+  @media only screen and (max-width: 37.5em) {
+    .leaflet-container a.leaflet-popup-close-button {
+      font-size: 1.9rem !important; } }
+  .leaflet-container a.leaflet-popup-close-button:hover {
+    color: #dfdfdf !important; }
 
 #map {
   flex-basis: 70%;
@@ -341,6 +366,13 @@ label {
   @media only screen and (max-width: 75em) {
     .sidebar {
       flex-basis: auto;
-      height: 100vh; } }
+      height: 100vh;
+      padding: 7rem 30rem; } }
+  @media only screen and (max-width: 56.25em) {
+    .sidebar {
+      padding: 6rem 16rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .sidebar {
+      padding: 5rem; } }
   .sidebar::-webkit-scrollbar {
     display: none; }

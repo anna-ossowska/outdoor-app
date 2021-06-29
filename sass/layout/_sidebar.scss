@@ -8,6 +8,15 @@
   @include respond(tab-land) {
     flex-basis: auto;
     height: 100vh;
+    padding: 7rem 30rem;
+  }
+
+  @include respond(tab-port) {
+    padding: 6rem 16rem;
+  }
+
+  @include respond(phone) {
+    padding: 5rem;
   }
 
   &::-webkit-scrollbar {
