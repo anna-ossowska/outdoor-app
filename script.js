@@ -220,23 +220,25 @@ class App {
     this.#map.on('click', this._showForm.bind(this));
   }
 
-  _renderWeather(lat, long) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=${API_KEY}`;
+  async _renderWeather(lat, long) {
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=${API_KEY}`;
 
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error('Weather cannot be displayed');
-        return res.json();
-      })
-      .then(data => {
-        weatherLocation.innerHTML = `${data.name}, ${data.sys.country} `;
-        weatherIcon.src = `./images/${data.weather[0].icon}.png`;
-        weatherTemp.innerHTML = `${data.main.temp.toFixed(1)}°​C`;
-      })
+      const res = await fetch(url);
 
-      .catch(err => {
-        console.error(err.message);
-      });
+      if (!res) throw new Error('Weather data cannot be displayed');
+      const data = await res.json();
+
+      this._renderWeatherToUI(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  _renderWeatherToUI(apiData) {
+    weatherLocation.innerHTML = `${apiData.name}, ${apiData.sys.country} `;
+    weatherIcon.src = `./images/${apiData.weather[0].icon}.png`;
+    weatherTemp.innerHTML = `${apiData.main.temp.toFixed(1)}°​C`;
   }
 
   _showForm(e) {
