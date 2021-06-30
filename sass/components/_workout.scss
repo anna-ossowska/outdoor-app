@@ -61,3 +61,11 @@
     margin-bottom: 2rem;
   }
 }
+
+.unit {
+  font-size: 1.3rem;
+
+  @include respond(tab-land) {
+    font-size: 1.25rem;
+  }
+}

@@ -148,19 +148,29 @@ label {
   font-size: 1.75rem; }
 
 .message {
-  position: absolute;
-  top: 7rem;
-  left: 86rem;
+  position: fixed;
+  top: 5.2rem;
+  right: 5.2rem;
   z-index: 2;
-  padding: 1.75rem 2.25rem;
+  padding: 1.65rem 2rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
   opacity: 0.92;
-  width: 40rem;
+  min-width: 35rem;
   transition: all 0.8s ease-in-out; }
+  @media only screen and (max-width: 75em) {
+    .message {
+      position: absolute;
+      top: 4.4rem;
+      left: 9.8rem;
+      right: initial; } }
+  @media only screen and (max-width: 37.5em) {
+    .message {
+      top: 2.2rem;
+      left: 10.5rem; } }
   .message--info {
     background-color: #a6a6a6; }
   .message--success {
@@ -227,18 +237,21 @@ label {
   .overlay--hidden {
     visibility: hidden;
     opacity: 0; }
+  @media only screen and (max-width: 75em) {
+    .overlay {
+      height: 100%; } }
 
 .weather {
   position: absolute;
-  bottom: 8rem;
-  right: 7rem;
+  bottom: 7rem;
+  right: 5.2rem;
   z-index: 2;
   background-color: #fff;
   padding: 2rem;
   border-radius: 0.5rem;
   color: #2d3439;
   text-align: center;
-  min-width: 17rem;
+  min-width: 15rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -246,24 +259,22 @@ label {
   box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2); }
   @media only screen and (max-width: 75em) {
     .weather {
-      bottom: 87rem;
-      right: 6rem; } }
-  @media only screen and (max-width: 56.25em) {
-    .weather {
-      bottom: 66rem;
-      right: 6rem; } }
+      top: 4.4rem;
+      right: 4.4rem;
+      bottom: initial; } }
   @media only screen and (max-width: 37.5em) {
     .weather {
-      display: none; } }
+      top: 2.2rem;
+      right: 2.2rem; } }
   .weather__location {
-    font-size: 2rem; }
+    font-size: 1.5rem; }
   .weather__icon {
     width: 5rem;
     padding: 0; }
   .weather__temp {
     color: #a6a6a6;
     font-weight: 600;
-    font-size: 1.75rem; }
+    font-size: 1.5rem; }
 
 .workout {
   position: relative;
@@ -308,6 +319,12 @@ label {
     margin-right: 2.25rem; }
   .workout:not(:last-child) {
     margin-bottom: 2rem; }
+
+.unit {
+  font-size: 1.3rem; }
+  @media only screen and (max-width: 75em) {
+    .unit {
+      font-size: 1.25rem; } }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
   background: #42484d !important;
@@ -366,7 +383,7 @@ label {
   @media only screen and (max-width: 75em) {
     .sidebar {
       flex-basis: auto;
-      height: 100vh;
+      height: 50vh;
       padding: 7rem 30rem; } }
   @media only screen and (max-width: 56.25em) {
     .sidebar {

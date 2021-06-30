@@ -167,7 +167,10 @@ class App {
 
     this._getPosition();
 
-    window.addEventListener('load', this._displayInfoMsg.bind(this));
+    window.addEventListener(
+      'load',
+      this._displayInfoMsg.bind(this, 'Click on the map to add a new workout')
+    );
 
     form.addEventListener('submit', this._newWorkout.bind(this));
 
@@ -182,8 +185,8 @@ class App {
     );
 
     // Modal
-    // window.addEventListener('load', this._showModal.bind(this));
-    // modal.addEventListener('submit', this._hideModal.bind(this));
+    window.addEventListener('load', this._showModal.bind(this));
+    modal.addEventListener('submit', this._hideModal.bind(this));
   }
 
   _getPosition() {
@@ -197,8 +200,6 @@ class App {
   }
 
   _loadMap(position) {
-    console.log(this.popups);
-    console.log(this.markers);
     const { latitude: lat, longitude: long } = position.coords;
 
     this.#map = L.map('map').setView([lat, long], this.#mapZoom);
@@ -228,7 +229,6 @@ class App {
         return res.json();
       })
       .then(data => {
-        console.log(data);
         weatherLocation.innerHTML = `${data.name}, ${data.sys.country} `;
         weatherIcon.src = `./images/${data.weather[0].icon}.png`;
         weatherTemp.innerHTML = `${data.main.temp.toFixed(1)}°​C`;
@@ -267,8 +267,6 @@ class App {
 
     let workout;
 
-    console.log(this.coords);
-
     const checkIfAllNumbers = function (...inputs) {
       return inputs.every(inp => isFinite(inp));
     };
@@ -282,7 +280,8 @@ class App {
       !checkIfAllNumbers(+distance, +duration) ||
       !checkIfAllPositive(+distance, +duration)
     ) {
-      alert('Please provide the positive numeric values');
+      // Display message
+      this._displayDangerMsg('Please provide the positive numeric values');
 
       // Clear input fields
       inputDistance.value = inputDuration.value = '';
@@ -300,7 +299,6 @@ class App {
     // 2. Hiking
     if (type === 'hiking') {
       workout = new Hiking(this.coords, distance, duration, this.weight);
-      console.log(workout.type);
       this.#workouts.push(workout);
     }
 
@@ -347,8 +345,6 @@ class App {
       this.#workouts.push(workout);
     }
 
-    console.log(this.#workouts);
-
     // Add workout to the UI
     this._addWorkoutToUI(workout);
 
@@ -365,7 +361,7 @@ class App {
     this._setLocalStorage(this.#workouts);
 
     // Display message
-    this._displaySuccessMsg();
+    this._displaySuccessMsg('Workout has been successfully added');
 
     // Render weather
     this._renderWeather(workout.coords[0], workout.coords[1]);
@@ -419,7 +415,7 @@ class App {
       this._setLocalStorage(filteredWorkouts);
 
       // Display message
-      this._displayDangerMsg();
+      this._displayDangerMsg('Workout has been successfully deleted');
     }
   }
 
@@ -475,10 +471,16 @@ class App {
         <div class="workout__details">
           <span class="workout__distance">${this._checkWorkoutType(
             workout.type
-          )} ${workout.distance} km</span>
-          <span class="workout__duration">⏱️ ${workout.duration} min</span>
-          <span class="workout__speed">💨 ${workout.speed} km/h</span>
-          <span class="workout__kcal">🔥 ${workout.kcal} kcal</span>
+          )} ${workout.distance} <span class="unit">km</span></span>
+          <span class="workout__duration">⏱️ ${
+            workout.duration
+          } <span class="unit">min</span></span>
+          <span class="workout__speed">💨 ${
+            workout.speed
+          } <span class="unit">km/h</span></span>
+          <span class="workout__kcal">🔥 ${
+            workout.kcal
+          } <span class="unit">kcal</span></span>
         </div>
       </li>
     `;
@@ -537,9 +539,10 @@ class App {
   }
 
   // UI messages
-  _displayInfoMsg() {
+  _displayInfoMsg(msg) {
     if (this.#workouts.length === 0) {
       msgInfo.classList.remove('message--hidden');
+      msgInfo.textContent = msg;
 
       // If click on map detected, remove the info message
       this.#map.on('click', function () {
@@ -548,13 +551,15 @@ class App {
     }
   }
 
-  _displaySuccessMsg() {
+  _displaySuccessMsg(msg) {
     msgSuccess.classList.remove('message--hidden');
+    msgSuccess.textContent = msg;
     setTimeout(() => msgSuccess.classList.add('message--hidden'), 4000);
   }
 
-  _displayDangerMsg() {
+  _displayDangerMsg(msg) {
     msgDanger.classList.remove('message--hidden');
+    msgDanger.textContent = msg;
     setTimeout(() => msgDanger.classList.add('message--hidden'), 4000);
   }
 

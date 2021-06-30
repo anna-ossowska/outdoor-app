@@ -1,14 +1,14 @@
 .weather {
   position: absolute;
-  bottom: 8rem;
-  right: 7rem;
+  bottom: 7rem;
+  right: 5.2rem;
   z-index: 2;
   background-color: $color-white;
   padding: 2rem;
   border-radius: $border-radius-main;
   color: $color-grey-dark-1;
   text-align: center;
-  min-width: 17rem;
+  min-width: 15rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,21 +16,18 @@
   box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
 
   @include respond(tab-land) {
-    bottom: 87rem;
-    right: 6rem;
-  }
-
-  @include respond(tab-port) {
-    bottom: 66rem;
-    right: 6rem;
+    top: 4.4rem;
+    right: 4.4rem;
+    bottom: initial;
   }
 
   @include respond(phone) {
-    display: none;
+    top: 2.2rem;
+    right: 2.2rem;
   }
 
   &__location {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   &__icon {
@@ -41,6 +38,6 @@
   &__temp {
     color: $color-info;
     font-weight: 600;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }

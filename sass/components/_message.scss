@@ -1,17 +1,29 @@
 .message {
-  position: absolute;
-  top: 7rem;
-  left: 86rem;
+  position: fixed;
+  top: 5.2rem;
+  right: 5.2rem;
   z-index: 2;
-  padding: 1.75rem 2.25rem;
+  padding: 1.65rem 2rem;
   border-radius: $border-radius-main;
   box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
   opacity: 0.92;
-  width: 40rem;
+  min-width: 35rem;
   transition: all 0.8s ease-in-out;
+
+  @include respond(tab-land) {
+    position: absolute;
+    top: 4.4rem;
+    left: 9.8rem;
+    right: initial;
+  }
+
+  @include respond(phone) {
+    top: 2.2rem;
+    left: 10.5rem;
+  }
 
   &--info {
     background-color: $color-info;
