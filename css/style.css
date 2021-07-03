@@ -88,6 +88,12 @@ body {
 .mt-5 {
   margin-top: 3rem; }
 
+.copyright {
+  color: #a6a6a6;
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 3rem; }
+
 .btn {
   background-color: #51c9e1;
   border-radius: 0.5rem;
@@ -291,6 +297,15 @@ label {
     font-weight: 600;
     font-size: 1.5rem; }
 
+.workouts {
+  min-height: 59vh; }
+  @media only screen and (max-width: 75em) {
+    .workouts {
+      min-height: 32vh; } }
+  @media only screen and (max-width: 56.25em) {
+    .workouts {
+      min-height: 27vh; } }
+
 .workout {
   position: relative;
   list-style: none;
@@ -392,19 +407,19 @@ label {
 .sidebar {
   background-color: #2d3439;
   flex-basis: 40%;
-  padding: 2.5rem 5rem 5rem;
+  padding: 2.5rem 5rem 0;
   overflow-x: hidden;
   overflow-y: scroll; }
   @media only screen and (max-width: 75em) {
     .sidebar {
       flex-basis: auto;
       height: 50vh;
-      padding: 2.5rem 30rem 7rem; } }
+      padding: 2.5rem 30rem 0r; } }
   @media only screen and (max-width: 56.25em) {
     .sidebar {
-      padding: 2.5rem 16rem 6rem; } }
+      padding: 2.5rem 16rem 0; } }
   @media only screen and (max-width: 37.5em) {
     .sidebar {
-      padding: 2.5rem 5rem 5rem; } }
+      padding: 2.5rem 5rem 0; } }
   .sidebar::-webkit-scrollbar {
     display: none; }

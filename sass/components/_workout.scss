@@ -1,3 +1,15 @@
+.workouts {
+  min-height: 59vh;
+
+  @include respond(tab-land) {
+    min-height: 32vh;
+  }
+
+  @include respond(tab-port) {
+    min-height: 27vh;
+  }
+}
+
 .workout {
   position: relative;
   list-style: none;
