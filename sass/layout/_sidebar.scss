@@ -1,22 +1,22 @@
 .sidebar {
   background-color: $color-grey-dark-1;
   flex-basis: 40%;
-  padding: 5rem;
+  padding: 2.5rem 5rem 5rem;
   overflow-x: hidden;
   overflow-y: scroll;
 
   @include respond(tab-land) {
     flex-basis: auto;
     height: 50vh;
-    padding: 7rem 30rem;
+    padding: 2.5rem 30rem 7rem;
   }
 
   @include respond(tab-port) {
-    padding: 6rem 16rem;
+    padding: 2.5rem 16rem 6rem;
   }
 
   @include respond(phone) {
-    padding: 5rem;
+    padding: 2.5rem 5rem 5rem;
   }
 
   &::-webkit-scrollbar {
