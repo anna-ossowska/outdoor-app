@@ -556,20 +556,20 @@ class App {
   _displaySuccessMsg(msg) {
     msgSuccess.classList.remove('message--hidden');
     msgSuccess.textContent = msg;
-    setTimeout(() => msgSuccess.classList.add('message--hidden'), 4000);
+    setTimeout(() => msgSuccess.classList.add('message--hidden'), 2500);
   }
 
   _displayDangerMsg(msg) {
     msgDanger.classList.remove('message--hidden');
     msgDanger.textContent = msg;
-    setTimeout(() => msgDanger.classList.add('message--hidden'), 4000);
+    setTimeout(() => msgDanger.classList.add('message--hidden'), 2500);
   }
 
   _showModal() {
     setTimeout(() => {
       modal.classList.remove('modal--hidden');
       overlay.classList.remove('overlay--hidden');
-    }, 100);
+    }, 1500);
   }
 
   _hideModal(e) {
