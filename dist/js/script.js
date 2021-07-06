@@ -207,10 +207,13 @@ class App {
     // render the local weather
     this._renderWeather(lat, long);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.#map);
+    L.tileLayer(
+      'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }
+    ).addTo(this.#map);
 
     this.#workouts.forEach(workout => this._renderMarkerAndPopup(workout));
 
