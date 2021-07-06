@@ -21,6 +21,7 @@ const msgSuccess = document.querySelector('.message--success');
 const msgDanger = document.querySelector('.message--danger');
 
 // Weather
+const weather = document.querySelector('.weather');
 const weatherLocation = document.querySelector('.weather__location');
 const weatherIcon = document.querySelector('.weather__icon');
 const weatherTemp = document.querySelector('.weather__temp');
@@ -172,6 +173,8 @@ class App {
       this._displayInfoMsg.bind(this, 'Click on the map to add a new workout')
     );
 
+    window.addEventListener('load', this._showWeather.bind(this));
+
     form.addEventListener('submit', this._newWorkout.bind(this));
 
     workoutsContainer.addEventListener(
@@ -233,6 +236,12 @@ class App {
     } catch (err) {
       console.error(err.message);
     }
+  }
+
+  _showWeather() {
+    setTimeout(() => {
+      weather.classList.remove('weather--hidden');
+    }, 2000);
   }
 
   _renderWeatherToUI(apiData) {
@@ -569,7 +578,7 @@ class App {
     setTimeout(() => {
       modal.classList.remove('modal--hidden');
       overlay.classList.remove('overlay--hidden');
-    }, 1500);
+    }, 2000);
   }
 
   _hideModal(e) {
