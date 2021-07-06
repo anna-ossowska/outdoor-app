@@ -20,6 +20,7 @@
   opacity: 0.9;
   transition: opacity, 0.25s ease-in;
   position: relative;
+  transition: all 0.2s ease-in;
 
   &::after {
     content: '';
@@ -71,6 +72,11 @@
 
   &:not(:last-child) {
     margin-bottom: 2rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #4c5257;
   }
 }
 

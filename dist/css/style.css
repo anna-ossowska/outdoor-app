@@ -320,7 +320,8 @@ label {
   padding: 2rem 2rem 2rem 3.5rem;
   opacity: 0.9;
   transition: opacity, 0.25s ease-in;
-  position: relative; }
+  position: relative;
+  transition: all 0.2s ease-in; }
   .workout::after {
     content: '';
     position: absolute;
@@ -354,6 +355,9 @@ label {
     margin-right: 2.25rem; }
   .workout:not(:last-child) {
     margin-bottom: 2rem; }
+  .workout:hover {
+    cursor: pointer;
+    background-color: #4c5257; }
 
 .unit {
   font-size: 1.3rem; }
