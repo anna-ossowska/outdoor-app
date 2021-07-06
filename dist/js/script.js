@@ -168,12 +168,12 @@ class App {
 
     this._getPosition();
 
+    window.addEventListener('load', this._showWeather.bind(this));
+
     window.addEventListener(
       'load',
       this._displayInfoMsg.bind(this, 'Click on the map to add a new workout')
     );
-
-    window.addEventListener('load', this._showWeather.bind(this));
 
     form.addEventListener('submit', this._newWorkout.bind(this));
 

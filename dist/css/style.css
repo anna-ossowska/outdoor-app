@@ -8,7 +8,7 @@
 
 html {
   font-size: 62.5%; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     html {
       font-size: 50%; } }
   @media only screen and (max-width: 37.5em) {
@@ -22,7 +22,7 @@ body {
   display: flex;
   height: 100vh;
   overscroll-behavior-y: none; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     body {
       overflow-x: hidden;
       padding: 3rem;
@@ -161,7 +161,7 @@ label {
     display: flex;
     justify-content: center;
     align-items: center; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .logo {
       width: 14rem; } }
   @media only screen and (max-width: 37.5em) {
@@ -182,7 +182,7 @@ label {
   opacity: 0.92;
   min-width: 35rem;
   transition: all 0.8s ease-in-out; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .message {
       position: absolute;
       top: 4.4rem;
@@ -259,7 +259,7 @@ label {
   .overlay--hidden {
     visibility: hidden;
     opacity: 0; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .overlay {
       height: 100%; } }
 
@@ -283,7 +283,7 @@ label {
   .weather--hidden {
     visibility: hidden;
     opacity: 0; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .weather {
       top: 4.4rem;
       right: 4.4rem;
@@ -304,7 +304,7 @@ label {
 
 .workouts {
   min-height: 59vh; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .workouts {
       min-height: 32vh; } }
   @media only screen and (max-width: 56.25em) {
@@ -357,7 +357,7 @@ label {
 
 .unit {
   font-size: 1.3rem; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .unit {
       font-size: 1.25rem; } }
 
@@ -390,7 +390,7 @@ label {
 
 .leaflet-container a.leaflet-popup-close-button {
   transition: color 0.25s ease-in-out; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .leaflet-container a.leaflet-popup-close-button {
       font-size: 1.4rem !important; } }
   @media only screen and (max-width: 37.5em) {
@@ -403,7 +403,7 @@ label {
   flex-basis: 70%;
   padding: 2rem;
   z-index: 1; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     #map {
       flex-basis: auto;
       height: 50vh;
@@ -415,11 +415,11 @@ label {
   padding: 2.5rem 5rem 0;
   overflow-x: hidden;
   overflow-y: scroll; }
-  @media only screen and (max-width: 75em) {
+  @media only screen and (max-width: 85em) {
     .sidebar {
       flex-basis: auto;
       height: 50vh;
-      padding: 2.5rem 30rem 0r; } }
+      padding: 2.5rem 30rem 0; } }
   @media only screen and (max-width: 56.25em) {
     .sidebar {
       padding: 2.5rem 16rem 0; } }
